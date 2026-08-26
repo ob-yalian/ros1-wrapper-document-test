@@ -237,8 +237,8 @@
   - 设置支持的 Gemini 330/335 系列设备的相机内同步参考点。**选项：** `Start`、`Middle`、`End`。参数为空时，节点不修改设备当前设置。
 
 ## 设备特定参数
-*   **`enable_gmsl_trigger`** / **`gmsl_trigger_fps`**
-    *   启用gmsl触发输出信号 / 设置gmsl触发fps。用于 [gmsl相机](../5_advanced_guide/multi_camera/gmsl_cameras.md)。
+> ROS1 wrapper 不提供 `enable_gmsl_trigger` 或 `gmsl_trigger_fps` 启动参数。GMSL 数据流和同步行为请使用设备支持的同步参数配置，具体限制参考 [GMSL 相机使用限制](../5_advanced_guide/multi_camera/gmsl_cameras.md)。
+
 * **`enable_ptp_config`**
   * 启用PTP时间同步。仅适用于Gemini 335Le。需要 `enable_sync_host_time` 设置为 `false`。
   > **支持模组**：Gemini 335Le。

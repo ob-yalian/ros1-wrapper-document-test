@@ -234,10 +234,8 @@ The following are the launch parameters available:
   - Sets the reference point for intra-camera synchronization on supported Gemini 330/335 series devices. **Options:** `Start`, `Middle`, `End`. When empty, the node leaves the device's current setting unchanged.
 
 ## Device-Specific Parameters
-* **`enable_gmsl_trigger`** / **`gmsl_trigger_fps`**
-  * Enable the gmsl trigger out signal / set gmsl trigger fps.
-  > Only supports [gmsl camera](../5_advanced_guide/multi_camera/gmsl_cameras.md).
-  >
+> The ROS1 wrapper does not expose `enable_gmsl_trigger` or `gmsl_trigger_fps` launch parameters. Configure GMSL stream and synchronization behavior with the supported device and sync parameters described in [GMSL Camera Usage Limitations](../5_advanced_guide/multi_camera/gmsl_cameras.md).
+
 * **`enable_ptp_config`**
   * Enable PTP time synchronization. Requires `enable_sync_host_time` to be `false`.
   > **Supported Modules**: Gemini 335Le
