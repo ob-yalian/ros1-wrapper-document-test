@@ -549,6 +549,8 @@ rosservice call /camera/get_ir_camera_info
 rosservice call /camera/save_images
 ```
 
+该服务会开始保存每个已启用图像流的帧。每帧会在节点当前工作目录下的 `image` 目录中生成三个同名文件：`.raw` 保存原始帧数据，`.png` 保存可查看的图像，`.json` 保存帧元数据。文件名包含数据流、分辨率、帧率、微秒级本地时间戳以及该数据流的序号。每个已启用数据流默认最多保存 `10` 帧。
+
 * `/camera/save_point_cloud`
 
 ```bash

@@ -549,6 +549,8 @@ rosservice call /camera/get_ir_camera_info
 rosservice call /camera/save_images
 ```
 
+The service starts saving frames from every enabled image stream. Each captured frame produces three files with the same name stem in the `image` directory under the node's current working directory: `.raw` for the original frame bytes, `.png` for a viewable image, and `.json` for frame metadata. File names include the stream, resolution, frame rate, a microsecond-resolution local timestamp, and a per-stream index. The default maximum is `10` frames per enabled stream.
+
 * `/camera/save_point_cloud`
 
 ```bash
