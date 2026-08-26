@@ -77,6 +77,22 @@ rosservice call /camera/set_color_mirror 1
 rosservice call /camera/toggle_color 1
 ```
 
+## 彩色帧队列诊断
+
+* `/camera/get_color_queue_stats`
+
+该服务使用 `std_srvs/SetBool`。请求值为 `false` 时查询当前统计信息；请求值为 `true` 时查询并重置累计统计信息。
+
+```bash
+rosservice call /camera/get_color_queue_stats false
+```
+
+响应的 `message` 字段为 JSON，包含总 `overflow_count` 和 `queues` 对象。每个已启用队列会报告 `capacity_frames`、`queue_size`、`max_queue_size`、`overflow_count`、`oldest_queue_wait_ms` 和 `max_queue_wait_ms`。响应同时包含节点 `namespace` 以及是否执行了统计重置的 `statistics_reset` 字段。
+
+```bash
+rosservice call /camera/get_color_queue_stats true
+```
+
 ## 深度流（Depth Stream）
 
 * `/camera/get_depth_camera_info`

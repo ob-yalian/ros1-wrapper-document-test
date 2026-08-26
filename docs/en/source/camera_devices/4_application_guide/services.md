@@ -77,6 +77,22 @@ rosservice call /camera/set_color_mirror 1
 rosservice call /camera/toggle_color 1
 ```
 
+## Color Queue Diagnostics
+
+* `/camera/get_color_queue_stats`
+
+This service uses `std_srvs/SetBool`. Pass `false` to query the current statistics, or `true` to query and reset the accumulated statistics.
+
+```bash
+rosservice call /camera/get_color_queue_stats false
+```
+
+The JSON response in `message` contains the total `overflow_count` and a `queues` object. Each enabled queue reports `capacity_frames`, `queue_size`, `max_queue_size`, `overflow_count`, `oldest_queue_wait_ms`, and `max_queue_wait_ms`. The service also reports the node `namespace` and whether the statistics were reset in `statistics_reset`.
+
+```bash
+rosservice call /camera/get_color_queue_stats true
+```
+
 ## Depth Stream
 
 * `/camera/get_depth_camera_info`
