@@ -376,11 +376,11 @@ The following are the launch parameters available:
 *   **`enable_sequence_id_filter`**
     *   Enable the Depth sequence id filter. Set with `sequence_id_filter_id`.
 *   **`enable_threshold_filter`**
-    *   Enable the Depth threshold filter. Set with `threshold_filter_max`, `threshold_filter_min`.
+    *   Enable the Depth threshold filter. Set with `threshold_filter_max` and `threshold_filter_min`; either bound can be configured independently. A bound set to `-1` is left unchanged.
 *   **`enable_hardware_noise_removal_filter`**
-    *   Enable the Depth hardware noise removal filter. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
+    *   Enable the Depth hardware noise removal filter. In `gemini_330_series.launch` and `gemini_330_series_nodelet.launch`, the default is empty, so the node keeps the SDK/firmware setting unchanged. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
 *   **`enable_noise_removal_filter`**
-    *   Enable the Depth software noise removal filter. Set with `noise_removal_filter_min_diff`, etc. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
+    *   Enable the Depth software noise removal filter. In `gemini_330_series.launch` and `gemini_330_series_nodelet.launch`, the default is empty, so the node keeps the SDK/firmware setting unchanged. Set with `noise_removal_filter_min_diff`, etc. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations. The low-CPU launch variants intentionally use their own explicit filter defaults.
 *   **`enable_spatial_filter`**
     *   Enable the Depth spatial filter. Set with `spatial_filter_alpha`, etc. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
 *   **`enable_temporal_filter`**

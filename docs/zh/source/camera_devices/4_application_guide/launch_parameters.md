@@ -378,11 +378,11 @@
 *   **`enable_sequence_id_filter`**
     *   启用深度序列id滤波器。使用 `sequence_id_filter_id` 设置。
 *   **`enable_threshold_filter`**
-    *   启用深度阈值滤波器。使用 `threshold_filter_max`、`threshold_filter_min` 设置。
+    *   启用深度阈值滤波器。使用 `threshold_filter_max` 和 `threshold_filter_min` 设置，最小值和最大值可以单独配置；某一边界为 `-1` 时保持设备当前值不变。
 *   **`enable_hardware_noise_removal_filter`**
-    *   启用深度硬件降噪滤波器。低 CPU 配置建议参考 [降低 CPU 使用率](../5_advanced_guide/performance/lower_cpu_usage.md)。
+    *   启用深度硬件降噪滤波器。在 `gemini_330_series.launch` 和 `gemini_330_series_nodelet.launch` 中默认值为空，节点会保持 SDK/固件当前配置不变。低 CPU 配置建议参考 [降低 CPU 使用率](../5_advanced_guide/performance/lower_cpu_usage.md)。
 *   **`enable_noise_removal_filter`**
-    *   启用深度软件降噪滤波器。使用 `noise_removal_filter_min_diff` 等设置。低 CPU 配置建议参考 [降低 CPU 使用率](../5_advanced_guide/performance/lower_cpu_usage.md)。
+    *   启用深度软件降噪滤波器。在 `gemini_330_series.launch` 和 `gemini_330_series_nodelet.launch` 中默认值为空，节点会保持 SDK/固件当前配置不变。使用 `noise_removal_filter_min_diff` 等参数设置。低 CPU 启动文件使用其自身的显式滤波器默认值，低 CPU 配置建议参考 [降低 CPU 使用率](../5_advanced_guide/performance/lower_cpu_usage.md)。
 *   **`enable_spatial_filter`**
     *   启用深度空间滤波器。使用 `spatial_filter_alpha` 等设置。低 CPU 配置建议参考 [降低 CPU 使用率](../5_advanced_guide/performance/lower_cpu_usage.md)。
 *   **`enable_temporal_filter`**
