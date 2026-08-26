@@ -65,6 +65,8 @@ The following are the launch parameters available:
     *   For lower CPU usage, see the `color_format` recommendations in [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md).
 *   **`enable_[color|depth|left_ir|right_ir|ir]`**
     *   Enable or disable the corresponding image stream.
+*   **`color_frame_queue_max_frames`**, **`left_color_frame_queue_max_frames`**, **`right_color_frame_queue_max_frames`**
+    *   Set the maximum number of color frames buffered by the corresponding color-frame worker. The default is `10`; when the queue is full, the oldest frame is discarded and the overflow counter is incremented. The current queue size and overflow counters can be queried with `/camera/get_color_queue_stats`.
 *   **`[color|depth|left_ir|right_ir|ir]_rotation`**
     *   Set stream image rotation.
     *   The possible values are `0`, `90`, `180`, `270`.
@@ -231,13 +233,11 @@ The following are the launch parameters available:
   *   `DEPTH`: Align color to depth.
   *   This parameter is case-insensitive. Hardware D2C only supports `COLOR` as the target stream; use `align_mode:=SW` if you need to align to `DEPTH`. See [Aligning Depth to Color](../5_advanced_guide/configuration/align_depth_color.md) for startup and viewing examples.
 - **`intra_camera_sync_reference`**
-  - Sets the reference point for intra-camera synchronization. Applicable for Gemini 330 series devices when `sync_mode` is set to **software** or **hardware trigger** mode. **Options:** `Start`, `Middle`, `End`. When empty, the node leaves the device's current setting unchanged.
+  - Sets the reference point for intra-camera synchronization on supported Gemini 330/335 series devices. **Options:** `Start`, `Middle`, `End`. When empty, the node leaves the device's current setting unchanged.
 
 ## Device-Specific Parameters
-* **`enable_gmsl_trigger`** / **`gmsl_trigger_fps`**
-  * Enable the gmsl trigger out signal / set gmsl trigger fps.
-  > Only supports [gmsl camera](../5_advanced_guide/multi_camera/gmsl_cameras.md).
-  >
+> The ROS1 wrapper does not expose `enable_gmsl_trigger` or `gmsl_trigger_fps` launch parameters. Configure GMSL stream and synchronization behavior with the supported device and sync parameters described in [GMSL Camera Usage Limitations](../5_advanced_guide/multi_camera/gmsl_cameras.md).
+
 * **`enable_ptp_config`**
   * Enable PTP time synchronization. Requires `enable_sync_host_time` to be `false`.
   > **Supported Modules**: Gemini 335Le
@@ -270,7 +270,7 @@ The following are the launch parameters available:
   > **Supported Modules**: Gemini 330 series
 * **`enable_fps_boost`**
   * Enable device FPS Boost. The default is `false`; this parameter only takes effect when the device supports the `FPS Boost` property.
-  > **Supported Modules**: Gemini 330 series
+  > **Supported Modules:** Gemini 305 / Gemini 330 series
 * **`enable_edge_noise_removal_filter`**
   * Enable EdgeNoiseRemovalFilter to reduce edge noise in depth frames.
   > **Supported Modules**: DaBai Max Pro
@@ -333,6 +333,8 @@ The following are the launch parameters available:
   * Enable the heartbeat function. Default is `false`. If `true`, the camera node will send heartbeat signals to the firmware.
 * **`enable_firmware_log`**
   * Enable firmware log capture independently from `enable_heartbeat`.
+* **`monitor_poll_interval_sec`**
+  * Set the SDK polling interval for the device heartbeat and firmware log, in seconds. The default is `-1`, which leaves the SDK polling interval unchanged. Valid values are `1–10`; values outside this range are clamped to the nearest boundary. This parameter controls the polling interval and does not enable heartbeat or firmware-log capture by itself.
 
 ### Miscellaneous
 *   **`config_file_path`**
@@ -348,6 +350,9 @@ The following are the launch parameters available:
     *   This parameter is case-insensitive. Use one of the valid values listed above.
 *   **`enable_d2c_viewer`**
     *   Publishes the D2C overlay image (for testing only). See [Aligning Depth to Color](../5_advanced_guide/configuration/align_depth_color.md) for usage examples.
+*   **`depth_colorizer_mode`**
+    *   Colorizes the depth image published on `/camera/depth/image_raw`. Supported values are `none`, `jet`, `jet_inv`, and `gray`. `none` keeps the raw depth image, `gray` publishes `mono8`, and `jet` / `jet_inv` publish `rgb8`.
+    *   When a colorizer mode other than `none` is selected together with `enable_d2c_viewer:=true`, the node logs a warning and automatically disables `enable_d2c_viewer`, because the viewer requires a raw `16UC1` depth image.
 
 ## IMU
 
@@ -373,11 +378,11 @@ The following are the launch parameters available:
 *   **`enable_sequence_id_filter`**
     *   Enable the Depth sequence id filter. Set with `sequence_id_filter_id`.
 *   **`enable_threshold_filter`**
-    *   Enable the Depth threshold filter. Set with `threshold_filter_max`, `threshold_filter_min`.
+    *   Enable the Depth threshold filter. Set with `threshold_filter_max` and `threshold_filter_min`; either bound can be configured independently. A bound set to `-1` is left unchanged.
 *   **`enable_hardware_noise_removal_filter`**
-    *   Enable the Depth hardware noise removal filter. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
+    *   Enable the Depth hardware noise removal filter. In `gemini_330_series.launch` and `gemini_330_series_nodelet.launch`, the default is empty, so the node keeps the SDK/firmware setting unchanged. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
 *   **`enable_noise_removal_filter`**
-    *   Enable the Depth software noise removal filter. Set with `noise_removal_filter_min_diff`, etc. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
+    *   Enable the Depth software noise removal filter. In `gemini_330_series.launch` and `gemini_330_series_nodelet.launch`, the default is empty, so the node keeps the SDK/firmware setting unchanged. Set with `noise_removal_filter_min_diff`, etc. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations. The low-CPU launch variants intentionally use their own explicit filter defaults.
 *   **`enable_spatial_filter`**
     *   Enable the Depth spatial filter. Set with `spatial_filter_alpha`, etc. See [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md) for low-CPU configuration recommendations.
 *   **`enable_temporal_filter`**

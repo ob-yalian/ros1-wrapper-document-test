@@ -77,6 +77,22 @@ rosservice call /camera/set_color_mirror 1
 rosservice call /camera/toggle_color 1
 ```
 
+## 彩色帧队列诊断
+
+* `/camera/get_color_queue_stats`
+
+该服务使用 `std_srvs/SetBool`。请求值为 `false` 时查询当前统计信息；请求值为 `true` 时查询并重置累计统计信息。
+
+```bash
+rosservice call /camera/get_color_queue_stats false
+```
+
+响应的 `message` 字段为 JSON，包含总 `overflow_count` 和 `queues` 对象。每个已启用队列会报告 `capacity_frames`、`queue_size`、`max_queue_size`、`overflow_count`、`oldest_queue_wait_ms` 和 `max_queue_wait_ms`。响应同时包含节点 `namespace` 以及是否执行了统计重置的 `statistics_reset` 字段。
+
+```bash
+rosservice call /camera/get_color_queue_stats true
+```
+
 ## 深度流（Depth Stream）
 
 * `/camera/get_depth_camera_info`
@@ -263,6 +279,34 @@ rosservice call /camera/get_white_balance
 
 ```bash
 rosservice call /camera/reset_white_balance
+```
+
+### Gemini 330 AE/AWB 调试
+
+Gemini 330 系列设备使用固件 `1.8.21` 及以上版本时，如果设备支持对应 SDK 属性，节点会提供以下服务：
+
+* `/camera/get_color_ae_awb_status`
+
+获取设备 AE/AWB 状态值。
+
+```bash
+rosservice call /camera/get_color_ae_awb_status
+```
+
+* `/camera/get_color_awb_gain`
+
+获取原始 Q8.8 格式的 `r_gain`、`b_gain` 和 `g_gain`。
+
+```bash
+rosservice call /camera/get_color_awb_gain
+```
+
+* `/camera/set_color_awb_gain`
+
+设置原始 Q8.8 格式的 RGB 通道增益。设置前必须关闭彩色自动白平衡。
+
+```bash
+rosservice call /camera/set_color_awb_gain "{r_gain: 512, b_gain: 512, g_gain: 512}"
 ```
 
 * `/camera/set_laser`
@@ -520,6 +564,8 @@ rosservice call /camera/get_ir_camera_info
 ```bash
 rosservice call /camera/save_images
 ```
+
+该服务会开始保存每个已启用图像流的帧。每帧会在节点当前工作目录下的 `image` 目录中生成三个同名文件：`.raw` 保存原始帧数据，`.png` 保存可查看的图像，`.json` 保存帧元数据。文件名包含数据流、分辨率、帧率、微秒级本地时间戳以及该数据流的序号。每个已启用数据流默认最多保存 `10` 帧。
 
 * `/camera/save_point_cloud`
 

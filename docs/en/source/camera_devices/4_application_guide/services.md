@@ -77,6 +77,22 @@ rosservice call /camera/set_color_mirror 1
 rosservice call /camera/toggle_color 1
 ```
 
+## Color Queue Diagnostics
+
+* `/camera/get_color_queue_stats`
+
+This service uses `std_srvs/SetBool`. Pass `false` to query the current statistics, or `true` to query and reset the accumulated statistics.
+
+```bash
+rosservice call /camera/get_color_queue_stats false
+```
+
+The JSON response in `message` contains the total `overflow_count` and a `queues` object. Each enabled queue reports `capacity_frames`, `queue_size`, `max_queue_size`, `overflow_count`, `oldest_queue_wait_ms`, and `max_queue_wait_ms`. The service also reports the node `namespace` and whether the statistics were reset in `statistics_reset`.
+
+```bash
+rosservice call /camera/get_color_queue_stats true
+```
+
 ## Depth Stream
 
 * `/camera/get_depth_camera_info`
@@ -263,6 +279,34 @@ rosservice call /camera/get_white_balance
 
 ```bash
 rosservice call /camera/reset_white_balance
+```
+
+### Gemini 330 AE/AWB Debugging
+
+On Gemini 330 series devices with firmware `1.8.21` or later, the following services are advertised when the corresponding SDK properties are supported:
+
+* `/camera/get_color_ae_awb_status`
+
+Returns the device AE/AWB status value.
+
+```bash
+rosservice call /camera/get_color_ae_awb_status
+```
+
+* `/camera/get_color_awb_gain`
+
+Returns the raw Q8.8 `r_gain`, `b_gain`, and `g_gain` values.
+
+```bash
+rosservice call /camera/get_color_awb_gain
+```
+
+* `/camera/set_color_awb_gain`
+
+Sets raw Q8.8 RGB channel gains. Color auto white balance must be disabled before setting the gains.
+
+```bash
+rosservice call /camera/set_color_awb_gain "{r_gain: 512, b_gain: 512, g_gain: 512}"
 ```
 
 * `/camera/set_laser`
@@ -520,6 +564,8 @@ rosservice call /camera/get_ir_camera_info
 ```bash
 rosservice call /camera/save_images
 ```
+
+The service starts saving frames from every enabled image stream. Each captured frame produces three files with the same name stem in the `image` directory under the node's current working directory: `.raw` for the original frame bytes, `.png` for a viewable image, and `.json` for frame metadata. File names include the stream, resolution, frame rate, a microsecond-resolution local timestamp, and a per-stream index. The default maximum is `10` frames per enabled stream.
 
 * `/camera/save_point_cloud`
 
