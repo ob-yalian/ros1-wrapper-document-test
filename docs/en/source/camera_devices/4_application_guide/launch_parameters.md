@@ -333,6 +333,8 @@ The following are the launch parameters available:
   * Enable the heartbeat function. Default is `false`. If `true`, the camera node will send heartbeat signals to the firmware.
 * **`enable_firmware_log`**
   * Enable firmware log capture independently from `enable_heartbeat`.
+* **`monitor_poll_interval_sec`**
+  * Set the SDK polling interval for the device heartbeat and firmware log, in seconds. The default is `-1`, which leaves the SDK polling interval unchanged. Valid values are `1–10`; values outside this range are clamped to the nearest boundary. This parameter controls the polling interval and does not enable heartbeat or firmware-log capture by itself.
 
 ### Miscellaneous
 *   **`config_file_path`**
