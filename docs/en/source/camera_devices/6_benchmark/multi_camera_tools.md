@@ -4,7 +4,9 @@ This section describes multi-camera synchronization verification and image group
 
 ## image_sync_example_node
 
-`image_sync_example_node` verifies multi-camera image timestamp synchronization online. It subscribes to multiple image topics, displays synchronized images, and prints timestamp difference information for validating frame alignment in Primary / Secondary Synced mode.
+`image_sync_example_node` verifies multi-camera image timestamp synchronization online. It subscribes to 1 to 8 image topics, displays synchronized images, and prints timestamp difference and FPS statistics for validating frame alignment in Primary / Secondary Synced mode.
+
+If `sync_topics` is not set, the node automatically discovers image topics for `left_color`, `right_color`, `left_ir`, `right_ir`, `color`, `depth`, and `ir`. To select topics explicitly, configure up to 8 entries with the `sync_topics` private parameter.
 
 Start multi-camera synchronization:
 

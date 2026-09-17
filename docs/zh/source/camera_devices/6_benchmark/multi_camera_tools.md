@@ -4,7 +4,9 @@
 
 ## image_sync_example_node
 
-`image_sync_example_node` 用于在线验证多相机图像时间戳同步情况。它会订阅多路图像 topic，显示同步图像，并输出时间戳差异信息，用于验证多相机主从同步模式下的帧对齐效果。
+`image_sync_example_node` 用于在线验证多相机图像时间戳同步情况。它会订阅 1 到 8 路图像 topic，显示同步图像，并输出时间戳差和 FPS 统计，用于验证多相机主从同步模式下的帧对齐效果。
+
+未设置 `sync_topics` 时，节点会自动发现 `left_color`、`right_color`、`left_ir`、`right_ir`、`color`、`depth` 和 `ir` 图像 topic。如需显式选择 topic，可通过私有参数 `sync_topics` 配置，最多设置 8 路。
 
 启动多相机同步：
 

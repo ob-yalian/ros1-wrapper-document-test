@@ -4,17 +4,18 @@ This section introduces the performance benchmark tools, their purpose, and the 
 
 ## common_benchmark_node.py
 
-`common_benchmark_node.py` monitors Orbbec camera performance in a ROS environment. It collects and records key camera metrics such as frame rate, latency, system resource usage, and packet loss rate to help evaluate camera node stability and performance. Statistics are updated once per second.
+`common_benchmark_node.py` monitors Orbbec camera performance in a ROS environment. It collects and records subscriber-side metrics such as image frame rate, latency, system resource usage, and estimated frame loss to help evaluate camera node stability and performance. Statistics are updated once per second.
 
 Features:
 
-- Measures published image frame rate and latency (current, minimum, maximum, and average).
+- Measures the frame rate and latency of images received by the subscriber (current, minimum, maximum, and average).
 - Monitors camera node CPU/ARM usage (current, minimum, maximum, and average).
-- Tracks frame drop rate (publisher) and packet loss rate (subscriber).
+- Estimates subscriber-side frame loss from image message timestamps.
+- Supports `color`, `left_color`, `right_color`, `depth`, `ir`, `left_ir`, and `right_ir` image streams, as well as compressed image and point cloud topics.
 - Prints real-time statistics at 1 Hz and saves results to a CSV file.
-- Supports configurable runtime, CSV output path, and camera names.
+- Supports configurable runtime, CSV output path, camera names, and topics.
 
-In ROS1, both frame drop rate and packet loss rate can be measured because the message header contains the `seq` field.
+The node estimates subscriber-side frame loss from adjacent image message timestamps. When `--ideal_fps` is set, it uses the specified ideal frame rate; otherwise, it learns the nominal frame interval from received image timestamps.
 
 ![common_benchmark_ros1](../image/benchmark_images/common_benchmark_ros1.png "ROS1")
 
@@ -38,7 +39,8 @@ Multi-camera monitoring example:
 rosrun orbbec_camera common_benchmark_node.py \
   --run_time 1h \
   --csv_file /tmp/cam_log.csv \
-  --camera_names camera,camera01
+  --camera_names camera,camera01 \
+  --topics color,left_color,right_color
 ```
 
 Parameters:
@@ -46,6 +48,8 @@ Parameters:
 - `--run_time` / `_run_time`: Monitoring duration. Supported formats include `10s`, `5m`, `1h`, and `2d`. The default is `10s`.
 - `--csv_file` / `_csv_file`: Output CSV file path.
 - `--camera_names` / `_camera_names`: Camera name list, separated by commas.
+- `--ideal_fps` / `_ideal_fps`: Ideal frame rate used for subscriber-side frame-loss estimation. A value greater than `0` overrides the interval learned from image timestamps.
+- `--topics` / `_topics`: Topics to monitor, separated by commas. Use raw stream names such as `color,left_color,right_color`, or full raw/compressed image and point cloud topics. Automatic discovery selects only raw image topics; compressed images and point clouds require full topic names.
 
 ## service_benchmark_node.py
 
