@@ -69,8 +69,6 @@ roslaunch orbbec_camera gemini_301_series.launch \
 
 The configuration file is located at `config/gemini305_dual_color.yaml` in the `orbbec_camera` package. It enables the `left_color` and `right_color` streams; other parameters inherit the defaults from `gemini_301_series.launch`.
 
-The Gemini 301 series also supports Color preset selection with the `color_preset` parameter. Set the preset by name, for example `Default`, `Warm Biased AWB`, or `Cold Biased AWB`. The available names are reported by the device.
-
 ## Extended presets
 
 ### G33X Close Range High Accuracy (Gemini 330 / Gemini 335 / Gemini 336)
