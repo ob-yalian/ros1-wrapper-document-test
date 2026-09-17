@@ -6,7 +6,7 @@
 
 ### 图像流
 
-这些话题为每个启用的相机流提供原始图像数据和相应的标定信息。`color`、`depth`、`left_ir`和`right_ir`流的模式是一致的。
+这些话题为每个启用的相机流提供原始图像数据和相应的标定信息。`color`、`left_color`、`right_color`、`depth`、`left_ir` 和 `right_ir` 流的模式是一致的。
 
 *   `/camera/color/image_raw`
     *   来自彩色流的原始图像数据。彩色格式为 RGB/YUYV 等非 MJPG 时，通常订阅该话题。
@@ -16,6 +16,11 @@
     *   彩色流的相机标定数据和元数据。
 *   `/camera/color/metadata`
     *   来自彩色流固件的底层元数据。
+
+*   `/camera/left_color/image_raw`
+    *   左彩色流的原始图像数据。
+*   `/camera/right_color/image_raw`
+    *   右彩色流的原始图像数据。
 
 *   `/camera/depth/image_raw`
     *   来自深度流的原始图像数据。
