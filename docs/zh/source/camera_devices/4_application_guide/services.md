@@ -241,7 +241,7 @@ rosservice call /camera/toggle_ir 1
 
 * `/camera/set_stream_profile`
 
-用于在节点运行期间切换一个或多个已启用图像流的 Profile。`stream_name` 支持 `color`、`left_color`、`right_color`、`depth`、`ir`、`left_ir` 和 `right_ir`。宽、高、帧率或格式可以只填写需要修改的字段；未修改的数值字段填写 `0`，格式填写空字符串。切换时节点会停止并重新启动数据流；如果目标 Profile 已经生效，服务会返回失败。
+用于在节点运行期间切换一个或多个已启用图像流的 Profile。`stream_name` 支持 `color`、`left_color`、`right_color`、`depth`、`ir`、`left_ir` 和 `right_ir`。宽、高、帧率或格式可以只填写需要修改的字段；未修改的数值字段填写 `0`，格式填写空字符串。切换时节点会停止并重新启动数据流；如果目标 Profile 已经生效，服务会返回失败。Gemini 301 系列要求所有启用且 FPS 大于 `0` 的图像流使用相同 FPS，服务会校验此限制。
 
 ```bash
 rosservice call /camera/set_stream_profile "{profiles: [{stream_name: 'color', width: 1280, height: 720, fps: 30, format: 'MJPG'}]}"

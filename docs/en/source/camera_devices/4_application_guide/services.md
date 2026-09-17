@@ -241,7 +241,7 @@ rosservice call /camera/toggle_ir 1
 
 * `/camera/set_stream_profile`
 
-Switch one or more enabled image stream profiles while the node is running. `stream_name` accepts `color`, `left_color`, `right_color`, `depth`, `ir`, `left_ir`, and `right_ir`. Specify only the fields to change; use `0` for unchanged numeric fields and an empty string for an unchanged format. The node stops and restarts the streams during the switch. The service reports failure if the requested profile is already active.
+Switch one or more enabled image stream profiles while the node is running. `stream_name` accepts `color`, `left_color`, `right_color`, `depth`, `ir`, `left_ir`, and `right_ir`. Specify only the fields to change; use `0` for unchanged numeric fields and an empty string for an unchanged format. The node stops and restarts the streams during the switch. The service reports failure if the requested profile is already active. On Gemini 301 series devices, all enabled image streams with an FPS greater than `0` must use the same FPS; the service validates this requirement.
 
 ```bash
 rosservice call /camera/set_stream_profile "{profiles: [{stream_name: 'color', width: 1280, height: 720, fps: 30, format: 'MJPG'}]}"
