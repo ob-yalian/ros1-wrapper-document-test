@@ -56,8 +56,18 @@ To switch Gemini 2L to dual IR mode, set `config_file_path` to `$(rospack find o
 | Dual Color Streams | Supports left and right color streams at the same time, no depth IR information<br> The left and right output effects are consistent |
 | Custom | Custom modifications, such as new configurations of post-processing pipelines and modifications to deep AE functions |
 
-> Since the parameter configuration of `Dual Color Streams` mode is quite different from that of `Default` mode, we provide the corresponding YAML configuration file.
-Please set `config_file_path` to `$(rospack find orbbec_camera)/config/gemini305_dual_color.yaml`.
+### Dual Color Mode
+
+The `Dual Color Streams` mode supports left and right color streams at the same time. It does not provide depth or IR information, and the left and right outputs have consistent effects.
+
+Because this mode uses a parameter configuration that differs significantly from `Default`, start it with the corresponding YAML configuration file:
+
+```bash
+roslaunch orbbec_camera gemini_301_series.launch \
+  config_file_path:=$(rospack find orbbec_camera)/config/gemini305_dual_color.yaml
+```
+
+The configuration file is located at `config/gemini305_dual_color.yaml` in the `orbbec_camera` package. It enables the `left_color` and `right_color` streams; other parameters inherit the defaults from `gemini_301_series.launch`.
 
 The Gemini 301 series also supports Color preset selection with the `color_preset` parameter. Set the preset by name, for example `Default`, `Warm Biased AWB`, or `Cold Biased AWB`. The available names are reported by the device.
 
