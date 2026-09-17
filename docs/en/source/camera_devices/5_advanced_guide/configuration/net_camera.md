@@ -38,7 +38,7 @@ roslaunch orbbec_camera femto_mega.launch enumerate_net_device:=false ip_address
 
 **Multi Net camera**
 
-For `multi_net_camera.launch` as an example:
+For [multi_net_camera.launch](https://github.com/orbbec/OrbbecSDK_ROS1/blob/v2-main/examples/net_camera/multi_net_camera.launch) as an example:
 
 ```bash
 roslaunch orbbec_camera multi_net_camera.launch
