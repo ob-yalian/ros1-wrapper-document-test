@@ -4,7 +4,7 @@ This section describes frame continuity, timestamp, and runtime status diagnosti
 
 ## Diagnostic Tool: Frame Drop Log and Timestamp CSV Recording
 
-After `enable_frame_drop_log` is enabled, the camera node prints color and depth frame drop statistics in the log. This helps locate frame drops at the SDK receive stage and ROS publish stage. When `frame_timestamp_csv_file` is set, the camera node also records color and depth frame timestamp data to a CSV file for analyzing frame continuity, publish latency, and timestamp anomalies.
+After `enable_frame_drop_log` is enabled, the camera node prints frame drop statistics for color, depth, left color, right color, left IR, and right IR in the log. This helps locate frame drops at the SDK receive stage and ROS publish stage. When `frame_timestamp_csv_file` is set, the camera node records timestamp data for `color`, `depth`, `left_color`, `right_color`, `left_ir`, `right_ir`, and enabled IMU streams to CSV files for analyzing frame continuity, publish latency, and timestamp anomalies. When frame synchronization (`enable_frame_sync:=true`) is enabled, `color` and `depth` timestamps are combined into one CSV file; otherwise, they are written to separate `<stem>_color.csv` and `<stem>_depth.csv` files. Left color, right color, left IR, and right IR are always written to separate files with the corresponding stream-name suffix. Synchronized accelerometer and gyroscope data are written to `<stem>_imu.csv`, while standalone accelerometer and gyroscope data are written to `<stem>_accel.csv` and `<stem>_gyro.csv`. All CSV files follow the same rotation rule.
 
 ```bash
 roslaunch orbbec_camera gemini_330_series.launch \
@@ -20,7 +20,7 @@ Each CSV file contains at most `1,024,575` frame rows plus the header. When the 
 
 ### Timestamp CSV Field Description
 
-The current CSV contains two groups of fields with the same structure, prefixed by `color_` and `depth_`, for example `color_sdk_frame_index` and `depth_sdk_frame_index`. The two groups have identical definitions and differ only in data source.
+The CSV contains groups of identically structured fields for each image stream. In synchronized records, the `color` and `depth` groups use the `color_` and `depth_` prefixes; standalone records also use prefixes such as `left_color_`, `right_color_`, `left_ir_`, and `right_ir_`. The groups have identical definitions and differ only in data source.
 
 | Field suffix | Description | Unit / Notes |
 | --- | --- | --- |
@@ -62,7 +62,7 @@ The current CSV contains two groups of fields with the same structure, prefixed 
 
 #### Timestamp CSV Synchronization Note
 
-This CSV is mainly used to analyze continuity and latency of a single color or depth stream. It cannot directly measure synchronization between color and depth.
+This CSV is mainly used to analyze continuity and latency for each image stream. It cannot directly measure synchronization between color and depth.
 
 ## monitor_fd.sh
 
