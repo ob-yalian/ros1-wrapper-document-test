@@ -105,6 +105,10 @@
 
 ### 设备状态和诊断
 
+*   `/camera/device_status`
+    *   报告相机设备的当前状态，消息类型为 `orbbec_camera/DeviceStatus`。
+    *   消息包含设备在线状态和连接类型，以及 `color`、`depth`、`left_color`、`right_color`、`left_ir` 和 `right_ir` 流的当前、平均、最小和最大 FPS 与延迟。
+
 *   `/diagnostics`
     *   发布关于相机节点的诊断信息。目前包括设备温度。
 
