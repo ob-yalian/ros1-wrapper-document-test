@@ -107,7 +107,7 @@ The following topics publish stream-to-stream extrinsics with type `orbbec_camer
 
 *   `/camera/device_status`
     *   Reports the current camera device status. The message type is `orbbec_camera/DeviceStatus`.
-    *   The message contains the device online status and connection type, as well as current, average, minimum, and maximum FPS and latency for the `color`, `depth`, `left_color`, `right_color`, `left_ir`, and `right_ir` streams.
+    *   The message contains the device online status, connection type, and calibration status, as well as a `streams` array. Each element contains `topic_name`, `has_subscribers`, `publish_rate_hz`, and `delay_ms_avg`; the status is published at 1 Hz.
 
 *   `/diagnostics`
     *   Publishes diagnostic information about the camera node. Currently, this includes the device temperature.
