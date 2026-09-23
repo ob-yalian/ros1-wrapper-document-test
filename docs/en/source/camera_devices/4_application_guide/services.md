@@ -483,7 +483,7 @@ rosservice call /camera/set_ae_strategy motion
 
 * `/camera/set_filter`
 
-For `FalsePositiveFilter` startup parameters, status checks, and named-parameter tuning examples, see [Gemini 330 Series FalsePositiveFilter Usage Guide](../5_advanced_guide/configuration/false_positive_filter.md). For `EnhancedDepthFilter` environment requirements, startup parameters, and status checks, see the [Gemini 330 Series EnhancedDepthFilter Usage Guide](../5_advanced_guide/configuration/enhanced_depth_filter.md).
+For `FalsePositiveFilter` startup parameters, status checks, and named-parameter tuning examples, see [Gemini 330 Series FalsePositiveFilter Usage Guide](../5_advanced_guide/configuration/false_positive_filter.md). For `EnhancedDepthFilter` environment requirements, startup parameters, and status checks, see the [EnhancedDepthFilter Usage Guide](../5_advanced_guide/configuration/enhanced_depth_filter.md).
 
 ```bash
 # filter_name is the filter name, and filter_enable indicates whether the filter is enabled.

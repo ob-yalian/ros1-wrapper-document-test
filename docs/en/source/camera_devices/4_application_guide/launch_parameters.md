@@ -268,14 +268,14 @@ The following are the launch parameters available:
   * Enable this option to reduce ghosting noise. For usage examples and runtime tuning, see [Gemini 330 Series FalsePositiveFilter Usage Guide](../5_advanced_guide/configuration/false_positive_filter.md).
   > **Supported Modules**: Gemini 330 series / Gemini 340 series
 * **`enable_enhanced_depth`**
-  * Enable LingBot enhanced depth filtering. The default is `false`. Both Color and Depth must be enabled, and D2C/C2D alignment must be configured. For complete environment, startup, and image requirements, see the [Gemini 330 Series EnhancedDepthFilter Usage Guide](../5_advanced_guide/configuration/enhanced_depth_filter.md).
-  > **Supported Modules**: Gemini 330 series
+  * Enable LingBot enhanced depth filtering. The default is `false`. Both Color and Depth must be enabled, and D2C/C2D alignment must be configured. For complete environment, startup, and image requirements, see the [EnhancedDepthFilter Usage Guide](../5_advanced_guide/configuration/enhanced_depth_filter.md).
+  > **Supported Modules**: Gemini 330 series, Dabai A, Dabai AL, Gemini 345, and Gemini 345Lg
 * **`enhanced_depth_model_path`**
   * Path to the LingBot `model.sm4` file. The default is empty. This parameter is required when enhanced depth filtering is enabled; an absolute path is recommended. The model file cannot be changed at runtime.
-  > **Supported Modules**: Gemini 330 series
+  > **Supported Modules**: Gemini 330 series, Dabai A, Dabai AL, Gemini 345, and Gemini 345Lg
 * **`enhanced_depth_confidence_threshold`**
   * Confidence threshold for enhanced depth filtering. It must be an integer from `0` to `255`. The default is `51`.
-  > **Supported Modules**: Gemini 330 series
+  > **Supported Modules**: Gemini 330 series, Dabai A, Dabai AL, Gemini 345, and Gemini 345Lg
 * **`enable_fps_boost`**
   * Enable device FPS Boost. The default is `false`; this parameter only takes effect when the device supports the `FPS Boost` property.
   > **Supported Modules:** Gemini 305 / Gemini 330 series
