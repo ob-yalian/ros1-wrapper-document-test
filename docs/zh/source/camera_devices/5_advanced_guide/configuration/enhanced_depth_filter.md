@@ -7,7 +7,7 @@ LingBot 增强深度滤波器（`EnhancedDepthFilter`）同时使用彩色和深
 使用 EnhancedDepthFilter 需要满足以下条件：
 
 * NVIDIA Jetson，操作系统为 Linux ARM64；
-* 支持该功能的 Gemini 330 系列、Dabai A、Dabai AL、Gemini 345 和 Gemini 345Lg 相机；
+* 支持该功能的 Gemini 330 或 Gemini 340 系列相机；
 * CUDA Runtime 12；
 * TensorRT 10 Runtime；
 * 有效的 LingBot-Depth License；
@@ -41,7 +41,6 @@ ROS1 驱动要求显式设置 `enhanced_depth_model_path`，建议使用绝对�
 * 软件对齐（`align_mode:=SW`）支持 D2C 和 C2D；
 * 硬件对齐（`align_mode:=HW`）仅支持对齐到 Color，即 D2C；
 * 建议设置 `frame_aggregate_mode:=full_frame`，保证每个 frameset 同时包含 Color 和 Depth。缺少其中任意一帧时，本帧不会执行 EnhancedDepthFilter。
-* 对于 Dabai A、Dabai AL、Gemini 345 和 Gemini 345Lg，启用增强深度时会自动启用 Color 去畸变，无需额外设置 `enable_color_undistortion`。
 
 ## 启动示例
 

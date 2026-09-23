@@ -7,7 +7,7 @@ The LingBot Enhanced Depth Filter (`EnhancedDepthFilter`) uses both color and de
 EnhancedDepthFilter requires:
 
 * an NVIDIA Jetson running Linux ARM64;
-* a supported Gemini 330 series, Dabai A, Dabai AL, Gemini 345, or Gemini 345Lg camera;
+* a supported Gemini 330 or Gemini 340 series camera;
 * CUDA Runtime 12;
 * TensorRT 10 Runtime;
 * a valid LingBot-Depth License;
@@ -41,7 +41,6 @@ The filter input must be an aligned frameset containing both Color and Depth fra
 * software alignment (`align_mode:=SW`) supports both D2C and C2D;
 * hardware alignment (`align_mode:=HW`) supports only alignment to Color, that is, D2C;
 * `frame_aggregate_mode:=full_frame` is recommended to ensure that each frameset contains both Color and Depth. EnhancedDepthFilter is skipped for a frameset if either frame is missing.
-* for Dabai A, Dabai AL, Gemini 345, and Gemini 345Lg, enabling enhanced depth automatically enables Color undistortion; `enable_color_undistortion` does not need to be set separately.
 
 ## Launch Examples
 
