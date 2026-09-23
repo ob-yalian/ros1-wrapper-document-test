@@ -351,6 +351,14 @@ OrbbecSDK ROS包装器提供了奥比中光相机与ROS环境的无缝集成。�
   </tbody>
 </table>
 
+## URDF 模型预览
+
+使用统一的 `view_model.launch` 预览 `urdf/` 下的模型，通过 `model` 指定 `test_*.urdf.xacro` 文件。例如：
+
+```bash
+roslaunch orbbec_camera view_model.launch model:=test_gemini_435_Le.urdf.xacro
+```
+
 所有启动文件本质上都是相似的，主要区别在于为同一系列中的不同型号设置的参数默认值。USB标准的差异（如USB 2.0与USB 3.0）可能需要调整这些参数。如果遇到启动失败，请仔细查阅规格说明书。特别注意启动文件中的分辨率设置以及其他参数，以确保兼容性和最佳性能。
 
 

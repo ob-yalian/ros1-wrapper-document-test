@@ -351,6 +351,14 @@ To learn how to obtain and upgrade the latest firmware, [please click here](../3
   </tbody>
 </table>
 
+## URDF Model Preview
+
+Use the unified `view_model.launch` to preview models under `urdf/`. Specify a `test_*.urdf.xacro` file with the `model` argument. For example:
+
+```bash
+roslaunch orbbec_camera view_model.launch model:=test_gemini_435_Le.urdf.xacro
+```
+
 All launch files are essentially similar, with the primary difference being the default values of the parameters set for different models within the same series. Differences in USB standards, such as USB 2.0 versus USB 3.0, may require adjustments to these parameters. If you encounter a startup failure, please carefully review the specification manual. Pay special attention to the resolution settings in the launch file, as well as other parameters, to ensure compatibility and optimal performance.
 
 
