@@ -65,11 +65,9 @@
     *   如需降低 CPU 使用率，可参考 [降低 CPU 使用率](../5_advanced_guide/performance/lower_cpu_usage.md) 中的 `color_format` 建议。
 *   **`enable_[color|depth|left_ir|right_ir|ir]`**
     *   启用或关闭对应图像流。
-
-> **Gemini 301 系列限制：** 启用且 FPS 大于 `0` 的所有图像流必须使用相同的 FPS。节点启动和通过 `/camera/set_stream_profile` 运行时切换 profile 时都会校验此限制。
-
+    *   Gemini 301 系列要求所有已启用且 FPS 大于 `0` 的图像流使用相同 FPS。
 *   **`color_frame_queue_max_frames`**、**`left_color_frame_queue_max_frames`**、**`right_color_frame_queue_max_frames`**
-    *   设置对应彩色帧线程缓存的最大帧数，默认值为 `10`。队列满时会丢弃最旧帧，并增加溢出计数；当前队列长度和溢出统计可通过 `/camera/get_color_queue_stats` 查询。
+    *   设置对应彩色帧线程缓存的最大帧数，默认值为 `10`，必须大于 `0`。队列满时会丢弃最旧帧，并增加溢出计数；当前队列长度和溢出统计可通过 `/camera/get_color_queue_stats` 查询。
 *   **`[color|depth|left_ir|right_ir|ir]_rotation`**
     *   设置流图像旋转。
     *   可能的值为 `0`、`90`、`180`、`270`。
@@ -91,6 +89,9 @@
   * 点云下采样因子。范围：`1–8`，`1`表示不下采样，数值越大下采样倍数越大。
 * **`enable_image_transport_plugins`**
   * 启用 ROS `image_transport` 插件发布普通图像流。默认值：`true`。设置为 `false` 时，普通图像流仅使用原始 `sensor_msgs/Image` 发布；MJPG 彩色流仍会额外发布 `/compressed` 话题。压缩图像订阅方法参考 [压缩图像](compressed_image.md)。
+
+> **流配置校验：** 启动时会校验 `preset_resolution_config` 格式、图像 Profile、彩色帧队列长度以及 Gemini 301 系列的帧率约束。校验失败时节点会报错并退出，不会回退到默认 Profile 或重复重连。
+
 * **`bag_record_filename`**
   * 启动后使用 SDK 录制设备数据到指定 `.bag` 文件。为空时不自动录制。开始录制时会同时导出同名 JSON preset 文件，例如 `record.bag` 对应 `record.json`。
 * **`bag_filename`**

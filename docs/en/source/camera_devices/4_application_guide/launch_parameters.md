@@ -65,11 +65,9 @@ The following are the launch parameters available:
     *   For lower CPU usage, see the `color_format` recommendations in [Lower CPU Usage](../5_advanced_guide/performance/lower_cpu_usage.md).
 *   **`enable_[color|depth|left_ir|right_ir|ir]`**
     *   Enable or disable the corresponding image stream.
-
-> **Gemini 301 series limitation:** All enabled image streams with an FPS greater than `0` must use the same FPS. The node validates this requirement at startup and when profiles are switched at runtime through `/camera/set_stream_profile`.
-
+    *   On Gemini 301 series devices, all enabled image streams with an FPS greater than `0` must use the same FPS.
 *   **`color_frame_queue_max_frames`**, **`left_color_frame_queue_max_frames`**, **`right_color_frame_queue_max_frames`**
-    *   Set the maximum number of color frames buffered by the corresponding color-frame worker. The default is `10`; when the queue is full, the oldest frame is discarded and the overflow counter is incremented. The current queue size and overflow counters can be queried with `/camera/get_color_queue_stats`.
+    *   Set the maximum number of color frames buffered by the corresponding color-frame worker. The default is `10`, and the value must be greater than `0`. When the queue is full, the oldest frame is discarded and the overflow counter is incremented. The current queue size and overflow counters can be queried with `/camera/get_color_queue_stats`.
 *   **`[color|depth|left_ir|right_ir|ir]_rotation`**
     *   Set stream image rotation.
     *   The possible values are `0`, `90`, `180`, `270`.
@@ -91,6 +89,9 @@ The following are the launch parameters available:
   * Point cloud downsampling factor. Range: `1–8`. `1` means no downsampling.
 * **`enable_image_transport_plugins`**
   * Enable ROS `image_transport` plugins for regular image streams. Default: `true`. When set to `false`, regular image streams are published only as raw `sensor_msgs/Image`; MJPG color streams still publish the extra `/compressed` topic. See [Compressed Image](compressed_image.md) for subscribing to compressed images.
+
+> **Stream configuration validation:** At startup, the node validates `preset_resolution_config`, image profiles, color-frame queue lengths, and the Gemini 301 series frame-rate constraint. If validation fails, the node reports an error and exits instead of falling back to a default profile or retrying the connection.
+
 * **`bag_record_filename`**
   * Record device data to the specified SDK `.bag` file after startup. Leave empty to disable automatic recording. When recording starts, a JSON preset file with the same base name is also exported, for example `record.bag` creates `record.json`.
 * **`bag_filename`**
