@@ -319,7 +319,7 @@
 
 ### 时间同步
 *   **`enable_sync_host_time`**
-    *   启用主机时间与相机时间的同步。默认值由设备 launch 文件决定；Gemini 330 系列（包括 Gemini 336L）的 launch 默认关闭。使用全局时间时应设置为 `false`。ROS1 不提供 `time_sync_period` launch 参数，周期授时间隔固定为 60 秒。
+    *   启用主机时间与相机时间的同步。默认值由设备 launch 文件决定；Gemini 330 系列（包括 Gemini 336L）的 launch 默认关闭。相机启动时会先执行一次主机时间同步；启用主机时间同步且 `time_domain` 不是 `global` 时，之后按固定 60 秒周期同步。使用全局时间时应设置为 `false`。ROS1 不提供 `time_sync_period` launch 参数。
 *   **`time_domain`**
     *   选择时间戳类型：`device`、`global` 和 `system`。
     *   该参数大小写不敏感；请使用上述有效值。

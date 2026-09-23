@@ -316,7 +316,7 @@ The following are the launch parameters available:
 
 ### Time Synchronization
 * **`enable_sync_host_time`**
-  * Enable synchronization of the host time with the camera time. The default is determined by the device launch file; Gemini 330 series launch files, including Gemini 336L, default to `false`. Set it to `false` when using global time. ROS1 does not expose a `time_sync_period` launch argument; the periodic synchronization interval is fixed at 60 seconds.
+  * Enable synchronization of the host time with the camera time. The default is determined by the device launch file; Gemini 330 series launch files, including Gemini 336L, default to `false`. The node performs one host-time synchronization at camera startup; when host-time synchronization is enabled and `time_domain` is not `global`, it continues with a fixed 60-second interval. Set it to `false` when using global time. ROS1 does not expose a `time_sync_period` launch argument.
 * **`time_domain`**
   * Select timestamp type: `device`, `global`, and `system`.
   * This parameter is case-insensitive. Use one of the valid values listed above.
