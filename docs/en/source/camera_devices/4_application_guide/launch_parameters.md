@@ -259,6 +259,9 @@ The following are the launch parameters available:
 * **`ae_strategy`**
   * Select the AE strategy for Gemini 301 series devices. Options: `default`, `motion`.
   > **Supported Modules**: Gemini 301 series
+
+> **Gemini 301 series defaults:** `gemini_301_series.launch` automatically matches device-supported profiles by default. The width, height, and FPS of `color`, `depth`, `left_ir`, and `right_ir` are `0`, and their formats are `ANY`; `ae_strategy` is `default` and `enable_fps_boost` is `true`. Set the corresponding launch parameters explicitly when a fixed profile is required.
+
 * **`depth_decimation_factor`** / **`left_ir_decimation_factor`** / **`right_ir_decimation_factor`**
   * Set the downsampling multiple. You can use `rosrun orbbec_camera list_camera_profile_mode_node` to view the settable resolution. **Default value:** `1`
   > **Supported Modules**: Gemini 301 series
