@@ -285,7 +285,6 @@
   > **支持模组**：Gemini 330 系列、Dabai A、Dabai AL、Gemini 345 和 Gemini 345Lg。
 * **`enable_fps_boost`**
   * 启用设备 FPS Boost。默认值为 `false`；仅在设备支持 `FPS Boost` 属性时生效。
-  > **支持模组：** Gemini 305 / Gemini 330 系列。
 * **`enable_edge_noise_removal_filter`**
   * 启用 EdgeNoiseRemovalFilter，用于减少深度图边缘噪声。
   > **支持模组**：DaBai Max Pro。
